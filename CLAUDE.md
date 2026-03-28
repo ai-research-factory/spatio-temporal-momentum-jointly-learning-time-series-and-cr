@@ -7,7 +7,7 @@ proj_cc30609a
 StatArb, Other
 
 ## Current Cycle
-2
+3
 
 ## Objective
 Implement, validate, and iteratively improve the paper's approach with production-quality standards.
@@ -68,25 +68,25 @@ df = df.set_index("timestamp")
 
 
 
-## ★ 今回のタスク (Cycle 2)
+## ★ 今回のタスク (Cycle 3)
 
 
-### Phase 2: データパイプラインと特徴量エンジニアリング [Track ]
+### Phase 3: ウォークフォワード検証フレームワークの実装 [Track ]
 
 **Track**:  (A=論文再現 / B=近傍改善 / C=独自探索)
-**ゴール**: yfinanceからETFデータを取得し、TSMおよびCSM特徴量を計算して保存する。
+**ゴール**: 論文の評価プロトコルに沿った、ウォークフォワード方式のバックテストエンジンを構築する。
 
 **具体的な作業指示**:
-`src/data.py`に`ETFDataLoader`クラスを実装します。このクラスは、11の米国セクターETF（'XLE', 'XLF', 'XLK', 'XLI', 'XLU', 'XLY', 'XLP', 'XLV', 'XLC', 'XLRE', 'XLB'）の日足データを`yfinance`からダウンロードし、月次データにリサンプリングします。次に、`src/features.py`に`FeatureEngine`クラスを作成します。このクラスは月次データを受け取り、TSM特徴量（過去1, 3, 6, 12ヶ月のリターン）とCSM特徴量（各時点での過去12ヶ月リターンのクロスセクションランク）を計算します。最後に、`scripts/prepare_data.py`を作成し、これらの処理を実行して、特徴量とターゲット（将来1ヶ月のリターン）を含む最終的なデータフレームを`data/processed/features.parquet`として保存します。
+`src/backtest.py`に`WalkForwardValidator`クラスを実装します。このクラスは、`n_splits=5`、`train_period_months=60`、`test_period_months=12`をデフォルトパラメータとして初期化します。その`run`メソッドは、データセット全体をウォークフォワードでループ処理します。各ループで、1) 訓練/テストデータを分割、2) 訓練データでモデルを再学習、3) テストデータでシグナルを生成、4) ポートフォリオのリターンを計算します。`src/evaluation.py`にSharpe比、年率リターン、最大ドローダウンを計算する関数を実装します。`scripts/run_backtest.py`を作成し、この検証を実行して、各フォールドの指標を`reports/cycle_3/walkforward_gross_metrics.json`に保存します。
 
 **期待される出力ファイル**:
-- data/processed/features.parquet
-- src/data.py
-- src/features.py
+- src/backtest.py
+- src/evaluation.py
+- reports/cycle_3/walkforward_gross_metrics.json
 
 **受入基準 (これを全て満たすまで完了としない)**:
-- `features.parquet`ファイルが生成される
-- 生成されたファイルには、NaNを含まないTSM、CSM、およびターゲットリターンの列が含まれている
+- `walkforward_gross_metrics.json`が生成され、5つのfoldに対応するSharpe比が記録されている
+- バックテストがエラーなく完了する
 
 
 
@@ -108,8 +108,8 @@ df = df.set_index("timestamp")
 ## 全体Phase計画 (参考)
 
 ✓ Phase 1: コアモデルのスケルトン実装と健全性チェック — 合成データ上で動作する、基本的なSpatio-Temporal Momentum NNモデルを実装する。
-→ Phase 2: データパイプラインと特徴量エンジニアリング — yfinanceからETFデータを取得し、TSMおよびCSM特徴量を計算して保存する。
-  Phase 3: ウォークフォワード検証フレームワークの実装 — 論文の評価プロトコルに沿った、ウォークフォワード方式のバックテストエンジンを構築する。
+✓ Phase 2: データパイプラインと特徴量エンジニアリング — yfinanceからETFデータを取得し、TSMおよびCSM特徴量を計算して保存する。
+→ Phase 3: ウォークフォワード検証フレームワークの実装 — 論文の評価プロトコルに沿った、ウォークフォワード方式のバックテストエンジンを構築する。
   Phase 4: 取引コストモデルの統合 — バックテストエンジンに取引コストを組み込み、ネットパフォーマンスを評価する。
   Phase 5: ハイパーパラメータ最適化 — Optunaを用いて、最初の訓練フォールド上でニューラルネットワークの主要なハイパーパラメータを最適化する。
   Phase 6: ロバスト性検証（全長バックテスト） — 最適化されたハイパーパラメータを使用して、利用可能な全期間にわたるウォークフォワードバックテストを実行する。
@@ -165,8 +165,8 @@ df = df.set_index("timestamp")
 
 ## 出力ファイル
 以下のファイルを保存してから完了すること:
-- `reports/cycle_2/metrics.json` — 下記スキーマに従う（必須）
-- `reports/cycle_2/technical_findings.md` — 実装内容、結果、観察事項
+- `reports/cycle_3/metrics.json` — 下記スキーマに従う（必須）
+- `reports/cycle_3/technical_findings.md` — 実装内容、結果、観察事項
 
 ### metrics.json 必須スキーマ
 ```json
