@@ -16,10 +16,38 @@ pytest tests/
 
 ## Data
 
-Data is fetched from the ARF Data API at runtime. Do not commit data files.
+Data is fetched from the ARF Data API at runtime (11 US Sector SPDRs). Do not commit data files.
+
+```bash
+# Data is auto-fetched on first run, or manually:
+curl -o data/XLE_1d.csv "https://ai.1s.xyz/api/data/ohlcv?ticker=XLE&interval=1d&period=10y"
+```
+
+## Running the Backtest
+
+```bash
+python3 scripts/run_backtest.py
+```
+
+This executes 5-fold walk-forward validation (60-month training, 12-month OOS test per fold) and saves results to `reports/cycle_3/`.
+
+## Key Results (Cycle 3)
+
+- **Avg Gross Sharpe**: 0.82 | **Avg Net Sharpe**: 0.78
+- **Positive windows**: 4/5 (80%)
+- **Transaction costs**: 10 bps fee + 5 bps slippage
+
+## Project Structure
+
+- `src/data.py` — Data loading from ARF API, monthly resampling, TSM+CSM feature engineering
+- `src/model.py` — SpatioTemporalMomentumNet (MLP with tanh output)
+- `src/evaluation.py` — Sharpe ratio, annualized return, max drawdown metrics
+- `src/backtest.py` — ARF standard backtest framework (walk-forward, costs, metrics)
+- `scripts/run_backtest.py` — Walk-forward backtest execution
 
 ## Reports
 
 Each cycle produces:
-- `reports/cycle_N/metrics.json` — Structured metrics
+- `reports/cycle_N/metrics.json` — Structured metrics (ARF schema)
+- `reports/cycle_N/walkforward_gross_metrics.json` — Per-fold metrics
 - `reports/cycle_N/technical_findings.md` — Technical summary

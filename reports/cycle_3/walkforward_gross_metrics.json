@@ -1,0 +1,72 @@
+[
+  {
+    "fold": 1,
+    "train_start": "2019-06-30",
+    "train_end": "2021-02-28",
+    "test_start": "2021-03-31",
+    "test_end": "2022-02-28",
+    "n_train_months": 21,
+    "n_test_months": 12,
+    "gross_sharpe": 0.297,
+    "gross_annual_return": 0.0177,
+    "gross_max_drawdown": -0.0569,
+    "net_sharpe": 0.2688,
+    "hit_rate": 0.5833
+  },
+  {
+    "fold": 2,
+    "train_start": "2019-06-30",
+    "train_end": "2022-02-28",
+    "test_start": "2022-03-31",
+    "test_end": "2023-02-28",
+    "n_train_months": 33,
+    "n_test_months": 12,
+    "gross_sharpe": 0.0935,
+    "gross_annual_return": 0.0026,
+    "gross_max_drawdown": -0.0197,
+    "net_sharpe": 0.0791,
+    "hit_rate": 0.4167
+  },
+  {
+    "fold": 3,
+    "train_start": "2019-06-30",
+    "train_end": "2023-02-28",
+    "test_start": "2023-03-31",
+    "test_end": "2024-02-29",
+    "n_train_months": 45,
+    "n_test_months": 12,
+    "gross_sharpe": 1.6662,
+    "gross_annual_return": 0.0311,
+    "gross_max_drawdown": -0.0108,
+    "net_sharpe": 1.6414,
+    "hit_rate": 0.6667
+  },
+  {
+    "fold": 4,
+    "train_start": "2019-06-30",
+    "train_end": "2024-02-29",
+    "test_start": "2024-03-31",
+    "test_end": "2025-02-28",
+    "n_train_months": 57,
+    "n_test_months": 12,
+    "gross_sharpe": -0.4661,
+    "gross_annual_return": -0.0054,
+    "gross_max_drawdown": -0.0113,
+    "net_sharpe": -0.5304,
+    "hit_rate": 0.5
+  },
+  {
+    "fold": 5,
+    "train_start": "2020-03-31",
+    "train_end": "2025-02-28",
+    "test_start": "2025-03-31",
+    "test_end": "2026-02-28",
+    "n_train_months": 60,
+    "n_test_months": 12,
+    "gross_sharpe": 2.5067,
+    "gross_annual_return": 0.0414,
+    "gross_max_drawdown": -0.0033,
+    "net_sharpe": 2.4629,
+    "hit_rate": 0.8333
+  }
+]

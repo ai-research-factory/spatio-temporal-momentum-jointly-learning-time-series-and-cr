@@ -1,0 +1,31 @@
+{
+  "sharpeRatio": 0.8195,
+  "annualReturn": 0.0175,
+  "maxDrawdown": -0.0569,
+  "hitRate": 0.6,
+  "totalTrades": 93,
+  "transactionCosts": {
+    "feeBps": 10.0,
+    "slippageBps": 5.0,
+    "netSharpe": 0.7844
+  },
+  "walkForward": {
+    "windows": 5,
+    "positiveWindows": 4,
+    "avgOosSharpe": 0.7844
+  },
+  "customMetrics": {
+    "n_splits": 5,
+    "train_months": 60,
+    "test_months": 12,
+    "model": "SpatioTemporalMomentumNet",
+    "features": "TSM+CSM (lookbacks: 1,3,6,12 months)",
+    "per_fold_gross_sharpe": [
+      0.297,
+      0.0935,
+      1.6662,
+      -0.4661,
+      2.5067
+    ]
+  }
+}
