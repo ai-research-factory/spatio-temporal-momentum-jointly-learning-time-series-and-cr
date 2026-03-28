@@ -1,0 +1,6 @@
+[project]
+name = "spatio-temporal-momentum-jointly-learning-time-series-and-cr"
+version = "0.1.0"
+description = "Spatio-Temporal Momentum: Jointly Learning Time-Series and Cross-Sectional Strategies"
+requires-python = ">=3.10"
+dependencies = ["numpy", "pandas", "scikit-learn", "torch", "matplotlib", "tqdm"]
