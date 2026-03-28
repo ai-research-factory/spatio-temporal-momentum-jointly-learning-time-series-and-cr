@@ -64,6 +64,24 @@ def hit_rate(returns: pd.Series) -> float:
     return float((returns > 0).sum() / len(returns))
 
 
+def portfolio_turnover(positions: np.ndarray) -> float:
+    """Compute average monthly portfolio turnover from position array.
+
+    Turnover = mean of sum of absolute position changes across assets per period.
+
+    Args:
+        positions: Array of shape (T, n_assets) with values in [-1, 1].
+
+    Returns:
+        Average turnover per period.
+    """
+    if len(positions) < 2:
+        return 0.0
+    prev = np.vstack([np.zeros((1, positions.shape[1])), positions[:-1]])
+    changes = np.abs(positions - prev)
+    return float(changes.sum(axis=1).mean())
+
+
 def compute_fold_metrics(returns: pd.Series, periods_per_year: int = 12) -> dict:
     """Compute all evaluation metrics for a single fold.
 

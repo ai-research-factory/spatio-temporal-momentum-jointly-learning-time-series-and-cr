@@ -22,6 +22,14 @@
 
 - **Fold 1 training data**: Only 21 months of training data for fold 1. Results from this fold should be interpreted with caution.
 
+## Transaction Cost Model (Cycle 4)
+
+- **Cost structure**: The paper specifies 5-10 bps per transaction. We use 10 bps fee + 5 bps slippage = 15 bps total as a conservative assumption. The paper's exact cost model (proportional vs. fixed, one-way vs. round-trip) is not fully specified.
+
+- **Turnover calculation**: Turnover is computed as sum of absolute position changes across all assets, normalized by n_assets. This assumes positions can be continuously adjusted (no rounding to discrete lot sizes). For liquid ETFs, this is a reasonable approximation.
+
+- **Entry costs**: Initial entry from zero is treated as a trade. Some implementations may amortize the initial entry differently. This has minimal impact since it only affects the first period of each fold.
+
 ## ARF Data API
 
 - No issues encountered with the ARF Data API. All 11 tickers returned valid OHLCV data.

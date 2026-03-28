@@ -29,20 +29,23 @@ curl -o data/XLE_1d.csv "https://ai.1s.xyz/api/data/ohlcv?ticker=XLE&interval=1d
 python3 scripts/run_backtest.py
 ```
 
-This executes 5-fold walk-forward validation (60-month training, 12-month OOS test per fold) and saves results to `reports/cycle_3/`.
+This executes 5-fold walk-forward validation (60-month training, 12-month OOS test per fold) with per-asset transaction cost modeling. Results are saved to `reports/cycle_4/`.
 
-## Key Results (Cycle 3)
+## Key Results (Cycle 4)
 
-- **Avg Gross Sharpe**: 0.82 | **Avg Net Sharpe**: 0.78
-- **Positive windows**: 4/5 (80%)
-- **Transaction costs**: 10 bps fee + 5 bps slippage
+- **Avg Gross Sharpe**: 0.74 | **Avg Net Sharpe**: 0.58
+- **Positive windows (gross)**: 5/5 (100%) | **(net)**: 4/5 (80%)
+- **Transaction costs**: 10 bps fee + 5 bps slippage (15 bps total)
+- **Avg Monthly Turnover**: 19.5%
+- **Cost Impact**: 21% Sharpe degradation from gross to net
+- **Cost breakeven**: Strategy remains positive-Sharpe up to ~50 bps
 
 ## Project Structure
 
 - `src/data.py` — Data loading from ARF API, monthly resampling, TSM+CSM feature engineering
 - `src/model.py` — SpatioTemporalMomentumNet (MLP with tanh output)
-- `src/evaluation.py` — Sharpe ratio, annualized return, max drawdown metrics
-- `src/backtest.py` — ARF standard backtest framework (walk-forward, costs, metrics)
+- `src/evaluation.py` — Sharpe ratio, annualized return, max drawdown, turnover metrics
+- `src/backtest.py` — ARF standard backtest framework (walk-forward, per-asset costs, cost sensitivity)
 - `scripts/run_backtest.py` — Walk-forward backtest execution
 
 ## Reports

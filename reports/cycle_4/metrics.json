@@ -1,0 +1,84 @@
+{
+  "sharpeRatio": 0.7389,
+  "annualReturn": 0.0108,
+  "maxDrawdown": -0.0343,
+  "hitRate": 0.5833,
+  "totalTrades": 112,
+  "transactionCosts": {
+    "feeBps": 10.0,
+    "slippageBps": 5.0,
+    "netSharpe": 0.5843
+  },
+  "walkForward": {
+    "windows": 5,
+    "positiveWindows": 4,
+    "avgOosSharpe": 0.5843
+  },
+  "customMetrics": {
+    "n_splits": 5,
+    "train_months": 60,
+    "test_months": 12,
+    "model": "SpatioTemporalMomentumNet",
+    "features": "TSM+CSM (lookbacks: 1,3,6,12 months)",
+    "per_fold_gross_sharpe": [
+      0.3423,
+      0.1316,
+      1.4244,
+      0.0641,
+      1.7321
+    ],
+    "per_fold_net_sharpe": [
+      0.2563,
+      0.0485,
+      1.2613,
+      -0.1152,
+      1.4704
+    ],
+    "per_fold_turnover": [
+      0.2052,
+      0.2374,
+      0.171,
+      0.1711,
+      0.1917
+    ],
+    "avg_monthly_turnover": 0.1953,
+    "avg_monthly_cost_bps": 2.93,
+    "cost_sensitivity": [
+      {
+        "total_cost_bps": 0,
+        "net_sharpe": 0.4608,
+        "net_annual_return": 0.0148
+      },
+      {
+        "total_cost_bps": 5,
+        "net_sharpe": 0.4214,
+        "net_annual_return": 0.0135
+      },
+      {
+        "total_cost_bps": 10,
+        "net_sharpe": 0.382,
+        "net_annual_return": 0.0123
+      },
+      {
+        "total_cost_bps": 15,
+        "net_sharpe": 0.3427,
+        "net_annual_return": 0.011
+      },
+      {
+        "total_cost_bps": 20,
+        "net_sharpe": 0.3036,
+        "net_annual_return": 0.0098
+      },
+      {
+        "total_cost_bps": 30,
+        "net_sharpe": 0.2256,
+        "net_annual_return": 0.0073
+      },
+      {
+        "total_cost_bps": 50,
+        "net_sharpe": 0.0712,
+        "net_annual_return": 0.0023
+      }
+    ]
+  }
+}
